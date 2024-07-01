@@ -110,3 +110,19 @@ nav a:hover {
 .container {
     padding-inline: 8rem;
 }
+
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
+}
+
+.filter-container * {
+    line-height: 1.5em;
+}
+
+.filter-container * {
+    width: 100px;
+}

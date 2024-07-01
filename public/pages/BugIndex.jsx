@@ -1,18 +1,20 @@
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
+import { utilService } from '../services/util.service.js'
 
 const { useState, useEffect } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
+    const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
 
     useEffect(() => {
         loadBugs()
-    }, [])
+    }, [filterBy])
 
     function loadBugs() {
-        bugService.query().then(setBugs)
+        bugService.query(filterBy).then(setBugs)
     }
 
     function onRemoveBug(bugId) {
@@ -70,8 +72,43 @@ export function BugIndex() {
             })
     }
 
+    function handleChange({ target }) {
+        const field = target.name
+        let value = target.value
+        switch (target.type) {
+            case 'number':
+            case 'range':
+                value = +value
+                if (value > 5) value = 5
+                else if (value < 0) value = 0
+                break;
+
+            case 'checkbox':
+                value = target.checked
+                break;
+
+            case 'radio':
+                value = target.id
+                break;
+            case 'select':
+                value = target.selected
+            default:
+                break;
+        }
+        setFilterBy(filter => ({ ...filter, [field]: value }))
+    }
+
     return (
         <main>
+            <section className="filtering">
+                <h3>Filter by:</h3>
+                <div className="filter-container">
+                    <label htmlFor="title"></label>
+                    <input id='title' onChange={handleChange} name='title' type="text" placeholder='Title' />
+                    <label htmlFor="severity"></label>
+                    <input id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
+                </div>
+            </section>
             <section className='info-actions'>
                 <h3>Bugs App</h3>
                 <button onClick={onAddBug}>Add Bug ⛐</button>

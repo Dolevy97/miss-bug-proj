@@ -14,10 +14,10 @@ app.use(express.static('public'))
 
 app.get('/api/bug', (req, res) => {
     const filterBy = {
-        txt: req.query.txt,
+        title: req.query.title,
         severity: +req.query.severity
     }
-    bugService.query()
+    bugService.query(filterBy)
         .then(bugs => res.send(bugs))
         .catch(err => {
             loggerService.error('cannot get bugs', err)

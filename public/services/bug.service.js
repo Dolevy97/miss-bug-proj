@@ -12,8 +12,8 @@ export const bugService = {
     getById,
     save,
     remove,
+    getDefaultFilter,
 }
-
 
 function query(filterBy = {}) {
     return axios.get(BASE_URL, { params: filterBy })
@@ -36,6 +36,11 @@ function save(bug) {
     if (bug._id) queryParams += `&_id=${bug._id}`
     return axios.get(url + queryParams).then(res => res.data)
 }
+
+function getDefaultFilter() {
+    return { title: '', severity: '' }
+}
+
 
 function _createBugs() {
     let bugs = utilService.loadFromStorage(STORAGE_KEY)
