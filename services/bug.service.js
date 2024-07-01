@@ -36,7 +36,7 @@ function save(bugToSave) {
 }
 
 function remove(bugId) {
-    const bugIdx = bugs.findIndex(bug => bug._id === bugToSave._id)
+    const bugIdx = bugs.findIndex(bug => bug._id === bugId)
     if (bugIdx < 0) return Promise.reject(`Cannot find bug - ${bugId}`)
     bugs.splice(bugIdx, 0)
     return _saveBugsToFile().then(() => `Bug (${bugId}) removed!`)

@@ -1,14 +1,14 @@
 [
     {
         "_id": "b1",
-        "title": "Cannot save a new car",
-        "description": "problem when clicking Save",
-        "severity": 3,
-        "createdAt": 1542107359454
+        "title": "Cannot add a new bug",
+        "description": "problem when clicking add",
+        "severity": 2,
+        "createdAt": 1719837129924
     },
     {
         "_id": "b2",
-        "title": "Cannot remove a new car",
+        "title": "Cannot remove a new bug",
         "description": "problem when clicking Remove",
         "severity": 4,
         "createdAt": 1542105359454

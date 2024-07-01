@@ -5,11 +5,18 @@ import { loggerService } from "./services/logger.service.js"
 
 const app = express()
 
-app.get('/', (req, res) => {
-    res.send('Hello There!')
-})
+
+//* Express Config:
+app.use(cookieParser())
+app.use(express.static('public'))
+
+//* Express Routing:
 
 app.get('/api/bug', (req, res) => {
+    const filterBy = {
+        txt: req.query.txt,
+        severity: +req.query.severity
+    }
     bugService.query()
         .then(bugs => res.send(bugs))
         .catch(err => {
@@ -37,6 +44,14 @@ app.get('/api/bug/save', (req, res) => {
 
 app.get('/api/bug/:bugId', (req, res) => {
     const { bugId } = req.params
+    let visitedBugs = req.cookies.visitedBugs || []
+    if (visitedBugs.length >= 3 && !visitedBugs.includes(bugId)) {
+        return res.status(401).send('You have visited too many bugs, please wait a bit.')
+    }
+    if (!visitedBugs.includes(bugId)) {
+        visitedBugs.push(bugId)
+        res.cookie('visitedBugs', visitedBugs, { maxAge: 1000 * 7 })
+    }
     bugService.getById(bugId)
         .then(bug => res.send(bug))
         .catch((err) => {
@@ -54,5 +69,7 @@ app.get('/api/bug/:bugId/remove', (req, res) => {
             res.status(500).send('Cannot get bug')
         })
 })
+
+
 
 app.listen(3030, () => console.log('Server ready at port 3030!'))

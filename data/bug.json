@@ -1,14 +1,28 @@
 [
     {
-        "_id": "b1",
-        "title": "",
-        "description": "",
+        "_id": "jGcuB",
+        "title": "Test ",
+        "description": "oaimdsf",
         "severity": 2,
-        "createdAt": 1719832835307
+        "createdAt": 1719842084952
+    },
+    {
+        "_id": "Tbewu",
+        "title": "adsf",
+        "description": "adsf",
+        "severity": "",
+        "createdAt": 1719842071064
+    },
+    {
+        "_id": "b1",
+        "title": "Cannot add a new bug",
+        "description": "problem when clicking add",
+        "severity": 2,
+        "createdAt": 1719837129924
     },
     {
         "_id": "b2",
-        "title": "Cannot remove a new car",
+        "title": "Cannot remove a new bug",
         "description": "problem when clicking Remove",
         "severity": 4,
         "createdAt": 1542105359454
