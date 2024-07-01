@@ -13,7 +13,6 @@ export const bugService = {
 function query(filterBy = {}) {
     return Promise.resolve(bugs)
         .then(bugs => {
-            console.log(filterBy)
             if (filterBy.title) {
                 const regExp = new RegExp(filterBy.title, 'i')
                 bugs = bugs.filter(bug => regExp.test(bug.title))
@@ -26,6 +25,7 @@ function query(filterBy = {}) {
 }
 
 function save(bugToSave) {
+    // console.log('bugToSave backend service: ', bugToSave)
     if (bugToSave._id) {
         const bugIdx = bugs.findIndex(bug => bug._id === bugToSave._id)
         bugs[bugIdx] = bugToSave
@@ -39,7 +39,7 @@ function save(bugToSave) {
 function remove(bugId) {
     const bugIdx = bugs.findIndex(bug => bug._id === bugId)
     if (bugIdx < 0) return Promise.reject(`Cannot find bug - ${bugId}`)
-    bugs.splice(bugIdx, 0)
+    bugs.splice(bugIdx, 1)
     return _saveBugsToFile().then(() => `Bug (${bugId}) removed!`)
 }
 

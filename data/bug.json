@@ -1,37 +1,38 @@
 [
     {
-        "_id": "uaMP2",
-        "title": "null",
-        "description": "",
-        "severity": 32,
-        "createdAt": 1719844242268
-    },
-    {
-        "_id": "jGcuB",
-        "title": "Test ",
-        "description": "jhklhjkl",
-        "severity": 5,
-        "createdAt": 1719849174185
-    },
-    {
-        "_id": "Tbewu",
-        "title": "adsf",
-        "description": "",
-        "severity": 20,
-        "createdAt": 1719849160858
-    },
-    {
-        "_id": "b1",
-        "title": "Cannot add a new bug",
-        "description": "problem when clicking add",
-        "severity": 2,
-        "createdAt": 1719837129924
-    },
-    {
-        "_id": "b2",
-        "title": "Cannot remove a new bug",
-        "description": "problem when clicking Remove",
+        "_id": "1NF1N1T3",
+        "title": "Infinite Loop Detected",
+        "description": "The system has detected an infinite loop in the code, which may cause the program to hang or crash.",
         "severity": 4,
-        "createdAt": 1542105359454
+        "createdAt": 1719837129924,
+        "labels": [
+            "bug",
+            "critical",
+            "performance"
+        ]
+    },
+    {
+        "_id": "K3YB0RD",
+        "title": "Keyboard Not Found",
+        "description": "The keyboard is not detected by the system. This may be due to a hardware issue or a disconnected cable.",
+        "severity": 3,
+        "createdAt": 1719837129924,
+        "labels": [
+            "hardware",
+            "input device",
+            "error"
+        ]
+    },
+    {
+        "_id": "C0FF33",
+        "title": "404 Coffee Not Found",
+        "description": "The coffee machine is out of coffee or unable to locate the coffee supply. Immediate caffeine fix required.",
+        "severity": 2,
+        "createdAt": 1719837129924,
+        "labels": [
+            "hardware",
+            "refreshment",
+            "minor"
+        ]
     }
 ]

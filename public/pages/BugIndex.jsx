@@ -1,7 +1,6 @@
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
-import { utilService } from '../services/util.service.js'
 
 const { useState, useEffect } = React
 
@@ -21,7 +20,7 @@ export function BugIndex() {
         bugService
             .remove(bugId)
             .then(() => {
-                console.log('Deleted Succesfully!')
+                console.log('Deleted Successfully!')
                 const bugsToUpdate = bugs.filter((bug) => bug._id !== bugId)
                 setBugs(bugsToUpdate)
                 showSuccessMsg('Bug removed')
@@ -41,7 +40,6 @@ export function BugIndex() {
         bugService
             .save(bug)
             .then((savedBug) => {
-                console.log('Added Bug', savedBug)
                 setBugs([...bugs, savedBug])
                 showSuccessMsg('Bug added')
             })
@@ -52,14 +50,14 @@ export function BugIndex() {
     }
 
     function onEditBug(bug) {
-        const severity = +prompt('New severity?')
-        const description = prompt('New Description?')
+        const title = prompt('New Title?', bug.title)
+        const description = prompt('New Description?', bug.description)
+        const severity = +prompt('New severity?', bug.severity)
 
-        const bugToSave = { ...bug, severity, description }
+        const bugToSave = { ...bug, severity, description, title }
         bugService
             .save(bugToSave)
             .then((savedBug) => {
-                console.log('Updated Bug:', savedBug)
                 const bugsToUpdate = bugs.map((currBug) =>
                     currBug._id === savedBug._id ? savedBug : currBug
                 )
@@ -98,20 +96,22 @@ export function BugIndex() {
         setFilterBy(filter => ({ ...filter, [field]: value }))
     }
 
+    const { title, severity } = filterBy
+
     return (
         <main>
+            <section className='info-actions'>
+                <h3>Bugs App</h3>
+                <button onClick={onAddBug}>Add Bug ⛐</button>
+            </section>
             <section className="filtering">
                 <h3>Filter by:</h3>
                 <div className="filter-container">
                     <label htmlFor="title"></label>
-                    <input id='title' onChange={handleChange} name='title' type="text" placeholder='Title' />
+                    <input value={title} id='title' onChange={handleChange} name='title' type="text" placeholder='Title' />
                     <label htmlFor="severity"></label>
-                    <input id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
+                    <input value={severity} id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
                 </div>
-            </section>
-            <section className='info-actions'>
-                <h3>Bugs App</h3>
-                <button onClick={onAddBug}>Add Bug ⛐</button>
             </section>
             <main>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />

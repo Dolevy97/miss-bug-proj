@@ -104,11 +104,16 @@ nav a:hover {
     color: gold;
 }
 
-.info-actions {
+.info-actions h3 {
+    margin-block-end: .5em;
 }
 
 .container {
     padding-inline: 8rem;
+}
+
+.filtering h3 {
+    margin-block-end: 0;
 }
 
 .filter-container {
@@ -116,7 +121,7 @@ nav a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: .5em;
+    gap: .2em;
 }
 
 .filter-container * {
