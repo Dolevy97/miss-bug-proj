@@ -1,11 +1,14 @@
 import express from "express"
 import cookieParser from "cookie-parser"
+import path from 'path'
 
 import { bugService } from "./services/bug.service.js"
 import { loggerService } from "./services/logger.service.js"
+import { fileURLToPath } from 'url';
 
 const app = express()
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //* Express Config:
 app.use(express.static('public'))
@@ -20,7 +23,8 @@ app.use(express.json())
 app.get('/api/bug', (req, res) => {
     const filterBy = {
         title: req.query.title,
-        severity: +req.query.severity
+        severity: +req.query.severity,
+        pageIdx: req.query.pageIdx
     }
     bugService.query(filterBy)
         .then(bugs => res.send(bugs))
@@ -100,6 +104,8 @@ app.delete('/api/bug/:bugId', (req, res) => {
         })
 })
 
-
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
 
 app.listen(3030, () => console.log('Server ready at 127.0.0.1:3030 !'))

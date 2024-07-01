@@ -96,7 +96,13 @@ export function BugIndex() {
         setFilterBy(filter => ({ ...filter, [field]: value }))
     }
 
-    const { title, severity } = filterBy
+    function onChangePageIdx(diff) {
+        if (filterBy.pageIdx + diff < 0) return
+        else if (bugs.length < 4) setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: 0 }))
+        else setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: prevFilter.pageIdx + diff }))
+    }
+
+    const { title, severity, pageIdx } = filterBy
 
     return (
         <main>
@@ -113,9 +119,17 @@ export function BugIndex() {
                     <input value={severity} id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
                 </div>
             </section>
+            <section className="sorting">
+                
+            </section>
             <main>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
             </main>
+            <section className="pagination">
+                <button onClick={() => onChangePageIdx(-1)} className="btn btn-prev">{`←`}</button>
+                <button className="btn btn-curr-page">{pageIdx + 1}</button>
+                <button onClick={() => onChangePageIdx(1)} className="btn btn-next">{`→`}</button>
+            </section>
         </main>
     )
 }

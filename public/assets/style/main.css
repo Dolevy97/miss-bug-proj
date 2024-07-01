@@ -131,3 +131,30 @@ nav a:hover {
 .filter-container * {
     width: 100px;
 }
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3em;
+}
+
+.pagination .btn {
+    color: antiquewhite;
+    background-color: #333;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.pagination .btn:not(.btn-curr-page) {
+    font-size: .9em;
+}
+
+.pagination .btn:not(.btn-curr-page):hover {
+    cursor: pointer;
+}
+
+
+.btn-curr-page {
+    font-size: 1.2em;
+}

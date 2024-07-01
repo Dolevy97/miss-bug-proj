@@ -24,13 +24,12 @@ function remove(bugId) {
 }
 
 function save(bug) {
-    console.log('bug react service: ', bug)
     const method = bug._id ? 'put' : 'post'
     return axios[method](BASE_URL, bug).then(res => res.data)
 }
 
 function getDefaultFilter() {
-    return { title: '', severity: '' }
+    return { title: '', severity: '', pageIdx: 0 }
 }
 
 
