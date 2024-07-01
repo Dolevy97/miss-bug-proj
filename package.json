@@ -1,0 +1,17 @@
+{
+  "name": "miss-bug-proj",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "miss-bug-backend.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --ignore \"./data\" server.js"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2"
+  }
+}
