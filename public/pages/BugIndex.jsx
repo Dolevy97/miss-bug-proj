@@ -102,7 +102,7 @@ export function BugIndex() {
         else setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: prevFilter.pageIdx + diff }))
     }
 
-    const { title, severity, pageIdx } = filterBy
+    const { title, severity, pageIdx, labels } = filterBy
 
     return (
         <main>
@@ -116,11 +116,13 @@ export function BugIndex() {
                     <label htmlFor="title"></label>
                     <input value={title} id='title' onChange={handleChange} name='title' type="text" placeholder='Title' />
                     <label htmlFor="severity"></label>
-                    <input value={severity} id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
+                    <input value={severity || ''} id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
+                    <label htmlFor="labels"></label>
+                    <input value={labels} id='labels' onChange={handleChange} name='labels' type="text" placeholder='Label' />
                 </div>
             </section>
             <section className="sorting">
-                
+
             </section>
             <main>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />

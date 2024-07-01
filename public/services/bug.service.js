@@ -29,7 +29,7 @@ function save(bug) {
 }
 
 function getDefaultFilter() {
-    return { title: '', severity: '', pageIdx: 0 }
+    return { title: '', severity: '', labels: '', pageIdx: 0 }
 }
 
 

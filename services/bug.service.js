@@ -17,13 +17,11 @@ function query(filterBy = {}) {
             // Filtering & Pagination
             bugs = _filter(bugs, filterBy)
 
-
             return bugs
         })
 }
 
 function save(bugToSave) {
-    // console.log('bugToSave backend service: ', bugToSave)
     if (bugToSave._id) {
         const bugIdx = bugs.findIndex(bug => bug._id === bugToSave._id)
         bugs[bugIdx] = bugToSave
@@ -67,9 +65,13 @@ function _filter(bugs, filterBy) {
     if (filterBy.severity) {
         bugs = bugs.filter(bug => bug.severity >= filterBy.severity)
     }
+    if (filterBy.labels) {
+        bugs = bugs.filter(bug => bug.labels.some(label => label.includes(filterBy.labels)))
+    }
     if (filterBy.pageIdx !== undefined) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
         bugs = bugs.slice(startIdx, startIdx + PAGE_SIZE)
     }
+
     return bugs
 }
