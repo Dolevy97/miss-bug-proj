@@ -3,7 +3,8 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     debounce,
-    throttle
+    throttle,
+    toCapitalize
 }
 
 function makeId(length = 6) {
@@ -61,4 +62,8 @@ function throttle(fn, wait) {
             }, wait)
         }
     }
+}
+
+function toCapitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
 }

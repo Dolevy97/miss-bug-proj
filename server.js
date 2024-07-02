@@ -68,6 +68,7 @@ app.post('/api/bug', (req, res) => {
         title: req.body.title || '',
         description: req.body.description || '',
         severity: +req.body.severity || '',
+        labels: req.body.labels || [],
         createdAt: +req.body.createdAt || Date.now()
     }
     bugService.save(bug)
@@ -80,11 +81,13 @@ app.post('/api/bug', (req, res) => {
 
 // Bug Update
 
-app.put('/api/bug/:bugId', (req, res) => {
+app.put('/api/bug', (req, res) => {
+    console.log(req.params)
     const bugToSave = {
-        _id: req.body._id,
+        _id: req.params._id,
         title: req.body.title || '',
         description: req.body.description || '',
+        labels: req.body.labels || '',
         severity: +req.body.severity || ''
     }
     bugService.save(bugToSave)

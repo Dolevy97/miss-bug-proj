@@ -1,6 +1,14 @@
+import { utilService } from "../services/util.service.js"
 const { useState, useEffect } = React
 
-export function BugFilter({ setFilterBy, filterBy }) {
+export function BugFilter({ getLabelList, onSetFilter, filterBy }) {
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [labels, setLabels] = useState(getLabelList())
+
+    useEffect(() => {
+        onSetFilter(filterByToEdit)
+    }, [filterByToEdit])
+
 
     function handleChange({ target }) {
         const field = target.name
@@ -25,10 +33,17 @@ export function BugFilter({ setFilterBy, filterBy }) {
             default:
                 break;
         }
-        setFilterBy(filter => ({ ...filter, [field]: value }))
+        if (target.type === 'checkbox') {
+            if (value) setFilterByToEdit(prevFilter => ({ ...prevFilter, labels: [...prevFilter.labels, field] }))
+            else {
+                const newLabels = filterByToEdit.labels.filter(label => label !== field)
+                setFilterByToEdit(prevFilter => ({ ...prevFilter, labels: newLabels }))
+            }
+        }
+        else setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const { title, severity, labels } = filterBy
+    const { title, severity } = filterByToEdit
 
     return (
         <section className="filtering">
@@ -38,8 +53,14 @@ export function BugFilter({ setFilterBy, filterBy }) {
                 <input value={title} id='title' onChange={handleChange} name='title' type="text" placeholder='Title' />
                 <label htmlFor="severity"></label>
                 <input value={severity || ''} id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
-                <label htmlFor="labels"></label>
-                <input value={labels} id='labels' onChange={handleChange} name='labels' type="text" placeholder='Label' />
+                <div className="labels-container">
+                    {labels.map(label =>
+                        <section key={label} className="label-container">
+                            <label htmlFor={label}>{utilService.toCapitalize(label)}</label>
+                            <input value={label} onChange={handleChange} type="checkbox" name={label} id={label} ></input>
+                        </section>
+                    )}
+                </div>
             </div>
         </section>
     )

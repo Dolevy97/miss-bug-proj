@@ -4,6 +4,7 @@ import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from '../cmps/BugFilter.jsx'
 
 const { useState, useEffect } = React
+const { Link } = ReactRouterDOM
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
@@ -34,71 +35,6 @@ export function BugIndex() {
             })
     }
 
-    function onAddBug() {
-        const bug = {
-            title: prompt('Bug title?'),
-            severity: +prompt('Bug severity?'),
-            description: prompt('Bug Description?')
-        }
-        bugService
-            .save(bug)
-            .then((savedBug) => {
-                setBugs([...bugs, savedBug])
-                showSuccessMsg('Bug added')
-            })
-            .catch((err) => {
-                console.log('Error from onAddBug ->', err)
-                showErrorMsg('Cannot add bug')
-            })
-    }
-
-    function onEditBug(bug) {
-        const title = prompt('New Title?', bug.title)
-        const description = prompt('New Description?', bug.description)
-        const severity = +prompt('New severity?', bug.severity)
-
-        const bugToSave = { ...bug, severity, description, title }
-        bugService
-            .save(bugToSave)
-            .then((savedBug) => {
-                const bugsToUpdate = bugs.map((currBug) =>
-                    currBug._id === savedBug._id ? savedBug : currBug
-                )
-                setBugs(bugsToUpdate)
-                showSuccessMsg('Bug updated')
-            })
-            .catch((err) => {
-                console.log('Error from onEditBug ->', err)
-                showErrorMsg('Cannot update bug')
-            })
-    }
-
-    function handleChange({ target }) {
-        const field = target.name
-        let value = target.value
-        switch (target.type) {
-            case 'number':
-            case 'range':
-                value = +value
-                if (value > 5) value = 5
-                else if (value < 0) value = 0
-                break
-
-            case 'checkbox':
-                value = target.checked
-                break
-
-            case 'radio':
-                value = target.id
-                break
-            case 'select':
-                value = target.selected
-            default:
-                break
-        }
-        setFilterBy(filter => ({ ...filter, [field]: value }))
-    }
-
     function onChangePageIdx(diff) {
         if (filterBy.pageIdx === undefined) return
         if (filterBy.pageIdx + diff < 0) return
@@ -114,17 +50,33 @@ export function BugIndex() {
         setSortBy({ ...sort, ...sortDirection })
     }
 
+    function onSetFilter(filter) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filter }))
+    }
+
     function onTogglePagination() {
         setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: prevFilter.pageIdx === undefined ? 0 : undefined }))
+    }
+
+    if (!bugs) return <h3>Loading..</h3>
+
+    function getLabelList() {
+        let labels = []
+        bugs.map(bug => {
+            bug.labels.map(label => {
+                if (!labels.includes(label)) labels.push(label)
+            })
+        })
+        return labels
     }
 
     return (
         <main>
             <section className='info-actions'>
                 <h3>Bugs App</h3>
-                <button onClick={onAddBug}>Add Bug ⛐</button>
+                <button><Link to="/bug/edit">Add Bug</Link></button>
             </section>
-            <BugFilter setFilterBy={setFilterBy} filterBy={filterBy} />
+            <BugFilter getLabelList={getLabelList} onSetFilter={onSetFilter} filterBy={filterBy} />
             <section className="sorting">
                 <h3>Sort by:</h3>
                 <div className="sort-container">
@@ -147,9 +99,9 @@ export function BugIndex() {
                 <button className="btn btn-curr-page">{filterBy.pageIdx + 1 || 'No Pagination'}</button>
                 <button onClick={() => onChangePageIdx(1)} className="btn btn-next">{`→`}</button>
             </section>
-                <button onClick={onTogglePagination} className="btn-toggle">Toggle Pagination</button>
+            <button onClick={onTogglePagination} className="btn-toggle">Toggle Pagination</button>
             <main>
-                <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+                <BugList bugs={bugs} onRemoveBug={onRemoveBug}/>
             </main>
         </main>
     )

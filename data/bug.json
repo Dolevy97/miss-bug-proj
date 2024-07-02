@@ -1,5 +1,27 @@
 [
     {
+        "_id": "K9kxI",
+        "title": "Infinite Loop Detected",
+        "description": "The system has detected an infinite loop in the code, which may cause the program to hang or crash.",
+        "labels": [
+            "bug",
+            "critical",
+            "performance"
+        ],
+        "severity": 4
+    },
+    {
+        "title": "fsfs",
+        "description": "adsfa",
+        "severity": 5,
+        "labels": [
+            "afaa",
+            "asdad"
+        ],
+        "createdAt": 1719935454396,
+        "_id": "XthL7"
+    },
+    {
         "_id": "1NF1N1T3",
         "title": "Infinite Loop Detected",
         "description": "The system has detected an infinite loop in the code, which may cause the program to hang or crash.",

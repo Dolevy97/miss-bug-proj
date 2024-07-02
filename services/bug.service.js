@@ -70,7 +70,7 @@ function _filter(bugs, filterBy) {
         bugs = bugs.filter(bug => bug.severity >= filterBy.severity)
     }
     if (filterBy.labels) {
-        bugs = bugs.filter(bug => bug.labels.some(label => label.includes(filterBy.labels)))
+        bugs = bugs.filter(bug => bug.labels.some(label => filterBy.labels.includes(label)))
     }
     if (filterBy.pageIdx !== undefined) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
