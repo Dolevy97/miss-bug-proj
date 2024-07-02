@@ -1,6 +1,7 @@
 // const Router = ReactRouterDOM.HashRouter
 // const { Route, Routes} = ReactRouterDOM
-const { Route, Routes, BrowserRouter } = ReactRouterDOM
+const { Route, Routes } = ReactRouterDOM
+const Router = ReactRouterDOM.BrowserRouter
 
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
@@ -11,7 +12,7 @@ import { AboutUs } from './pages/AboutUs.jsx'
 
 export function App() {
     return (
-        <BrowserRouter>
+        <Router>
             <div className='main-app'>
                 <AppHeader />
                 <main className='container'>
@@ -24,6 +25,6 @@ export function App() {
                 </main>
                 <AppFooter />
             </div>
-        </BrowserRouter>
+        </Router>
     )
 }

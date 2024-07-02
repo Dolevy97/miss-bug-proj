@@ -11,11 +11,15 @@ export const bugService = {
     remove,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = {}) {
     return Promise.resolve(bugs)
         .then(bugs => {
+
             // Filtering & Pagination
             bugs = _filter(bugs, filterBy)
+
+            // Sorting
+            bugs = _sort(bugs, sortBy)
 
             return bugs
         })
@@ -72,6 +76,18 @@ function _filter(bugs, filterBy) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
         bugs = bugs.slice(startIdx, startIdx + PAGE_SIZE)
     }
+    return bugs
+}
 
+function _sort(bugs, sortBy) {
+    if (sortBy.field === 'title') {
+        bugs = bugs.toSorted((b1, b2) => b1.title.localeCompare(b2.title) * sortBy.order)
+    }
+    else if (sortBy.field === 'severity') {
+        bugs = bugs.toSorted((b1, b2) => (b2.severity - b1.severity) * sortBy.order)
+    }
+    else if (sortBy.field === 'createdAt') {
+        bugs = bugs.toSorted((b1, b2) => (b2.createdAt - b1.createdAt) * sortBy.order)
+    }
     return bugs
 }

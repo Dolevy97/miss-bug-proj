@@ -1,19 +1,22 @@
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
+import { BugFilter } from '../cmps/BugFilter.jsx'
 
 const { useState, useEffect } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
+    const [sortDirection, setSortDirection] = useState({ sortByOrder: 1 })
+    const [sortBy, setSortBy] = useState({ sortByField: 'createdAt', ...sortDirection })
 
     useEffect(() => {
         loadBugs()
-    }, [filterBy])
+    }, [filterBy, sortBy])
 
     function loadBugs() {
-        bugService.query(filterBy).then(setBugs)
+        bugService.query(filterBy, sortBy).then(setBugs)
     }
 
     function onRemoveBug(bugId) {
@@ -79,30 +82,41 @@ export function BugIndex() {
                 value = +value
                 if (value > 5) value = 5
                 else if (value < 0) value = 0
-                break;
+                break
 
             case 'checkbox':
                 value = target.checked
-                break;
+                break
 
             case 'radio':
                 value = target.id
-                break;
+                break
             case 'select':
                 value = target.selected
             default:
-                break;
+                break
         }
         setFilterBy(filter => ({ ...filter, [field]: value }))
     }
 
     function onChangePageIdx(diff) {
+        if (filterBy.pageIdx === undefined) return
         if (filterBy.pageIdx + diff < 0) return
         else if (bugs.length < 4) setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: 0 }))
         else setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: prevFilter.pageIdx + diff }))
     }
 
-    const { title, severity, pageIdx, labels } = filterBy
+    function toggleSortDirection() {
+        setSortDirection(sortDirection.sortByOrder === 1 ? { sortByOrder: -1 } : { sortByOrder: 1 })
+    }
+
+    function onSetSort(sort) {
+        setSortBy({ ...sort, ...sortDirection })
+    }
+
+    function onTogglePagination() {
+        setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: prevFilter.pageIdx === undefined ? 0 : undefined }))
+    }
 
     return (
         <main>
@@ -110,28 +124,33 @@ export function BugIndex() {
                 <h3>Bugs App</h3>
                 <button onClick={onAddBug}>Add Bug ⛐</button>
             </section>
-            <section className="filtering">
-                <h3>Filter by:</h3>
-                <div className="filter-container">
-                    <label htmlFor="title"></label>
-                    <input value={title} id='title' onChange={handleChange} name='title' type="text" placeholder='Title' />
-                    <label htmlFor="severity"></label>
-                    <input value={severity || ''} id='severity' onChange={handleChange} name='severity' min={0} max={5} type="number" placeholder='Severity' />
-                    <label htmlFor="labels"></label>
-                    <input value={labels} id='labels' onChange={handleChange} name='labels' type="text" placeholder='Label' />
+            <BugFilter setFilterBy={setFilterBy} filterBy={filterBy} />
+            <section className="sorting">
+                <h3>Sort by:</h3>
+                <div className="sort-container">
+                    <button onClick={() => {
+                        onSetSort({ sortByField: 'title' })
+                        toggleSortDirection()
+                    }} className="btn sort-btn">Title</button>
+                    <button onClick={() => {
+                        onSetSort({ sortByField: 'severity' })
+                        toggleSortDirection()
+                    }} className="btn sort-btn">Severity</button>
+                    <button onClick={() => {
+                        onSetSort({ sortByField: 'createdAt' })
+                        toggleSortDirection()
+                    }} className="btn sort-btn">Time of Creation</button>
                 </div>
             </section>
-            <section className="sorting">
-
+            <section className="pagination">
+                <button onClick={() => onChangePageIdx(-1)} className="btn btn-prev">{`←`}</button>
+                <button className="btn btn-curr-page">{filterBy.pageIdx + 1 || 'No Pagination'}</button>
+                <button onClick={() => onChangePageIdx(1)} className="btn btn-next">{`→`}</button>
             </section>
+                <button onClick={onTogglePagination} className="btn-toggle">Toggle Pagination</button>
             <main>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
             </main>
-            <section className="pagination">
-                <button onClick={() => onChangePageIdx(-1)} className="btn btn-prev">{`←`}</button>
-                <button className="btn btn-curr-page">{pageIdx + 1}</button>
-                <button onClick={() => onChangePageIdx(1)} className="btn btn-next">{`→`}</button>
-            </section>
         </main>
     )
 }

@@ -8,8 +8,12 @@ export const bugService = {
     getDefaultFilter,
 }
 
-function query(filterBy = {}) {
-    return axios.get(BASE_URL, { params: filterBy })
+function query(filterBy = {}, sortBy = {}) {
+    const filterAndSort = {
+        ...filterBy,
+        ...sortBy
+    }
+    return axios.get(BASE_URL, { params: filterAndSort })
         .then(res => res.data)
 }
 
@@ -29,7 +33,7 @@ function save(bug) {
 }
 
 function getDefaultFilter() {
-    return { title: '', severity: '', labels: '', pageIdx: 0 }
+    return { title: '', severity: '', labels: ''}
 }
 
 

@@ -14,3 +14,5 @@
 1.7.2024, 21:35:57 - INFO - Bug cLSne removed
 1.7.2024, 21:35:58 - INFO - Bug uuFqr removed
 1.7.2024, 21:42:02 - INFO - Bug 3JXj2 removed
+2.7.2024, 9:04:40 - ERROR - cannot get bugs | TypeError: m1.createdAt.localeCompare is not a function
+2.7.2024, 9:05:33 - ERROR - cannot get bugs | TypeError: b1.severity.localeCompare is not a function

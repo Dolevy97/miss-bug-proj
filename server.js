@@ -27,7 +27,13 @@ app.get('/api/bug', (req, res) => {
         labels: req.query.labels,
         pageIdx: req.query.pageIdx
     }
-    bugService.query(filterBy)
+    const sortBy = {
+        field: req.query.sortByField || 'createdAt',
+        order: req.query.sortByOrder === '1' ? -1 : 1
+    }
+    // console.log('req.query: ', req.query)
+
+    bugService.query(filterBy, sortBy)
         .then(bugs => res.send(bugs))
         .catch(err => {
             loggerService.error('cannot get bugs', err)
@@ -105,8 +111,12 @@ app.delete('/api/bug/:bugId', (req, res) => {
         })
 })
 
+// Default path
+
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
+
+// Listen
 
 app.listen(3030, () => console.log('Server ready at 127.0.0.1:3030 !'))
