@@ -76,6 +76,10 @@ function _filter(bugs, filterBy) {
     if (filterBy.labels) {
         bugs = bugs.filter(bug => bug.labels.some(label => filterBy.labels.includes(label)))
     }
+    if (filterBy.userId) {
+        bugs = bugs.filter(bug => bug.creator._id === filterBy.userId)
+    }
+
     if (filterBy.pageIdx !== undefined) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
         bugs = bugs.slice(startIdx, startIdx + PAGE_SIZE)

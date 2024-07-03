@@ -1,37 +1,5 @@
 [
     {
-        "_id": "K3YB0RD",
-        "title": "Keyboard Not Found",
-        "description": "The keyboard is not detected by the system. This may be due to a hardware issue or a disconnected cable.",
-        "severity": 3,
-        "createdAt": 1719834129924,
-        "labels": [
-            "hardware",
-            "input device",
-            "error"
-        ],
-        "creator": {
-            "_id": "u101",
-            "fullName": "Dolev Levy"
-        }
-    },
-    {
-        "_id": "C0FF33",
-        "title": "404 Coffee Not Found",
-        "description": "The coffee machine is out of coffee or unable to locate the coffee supply. Immediate caffeine fix required.",
-        "severity": 2,
-        "createdAt": 1719835129924,
-        "labels": [
-            "hardware",
-            "refreshment",
-            "minor"
-        ],
-        "creator": {
-            "_id": "u101",
-            "fullName": "Dolev Levy"
-        }
-    },
-    {
         "_id": "1NF1N1T3-2",
         "title": "Infinite Loop Detected - 2",
         "description": "The system has detected an infinite loop in the code, which may cause the program to hang or crash.",

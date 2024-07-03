@@ -8,6 +8,7 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 
 import { UserMsg } from './UserMsg.jsx'
 import { LoginSignup } from './LoginSignup.jsx'
+import { AdminHeader } from '../pages/AdminHeader.jsx'
 
 export function AppHeader() {
 	const navigate = useNavigate()
@@ -34,10 +35,10 @@ export function AppHeader() {
 					<NavLink to="/bug">Bugs</NavLink>
 				</nav>
 			</section>
-
+			{user && user.isAdmin && <AdminHeader />}
 			{user ? (
 				<section className='user-authentication'>
-					<Link to={`/user/${user._id}`}>Hello {user.fullname}</Link>
+					<h1><Link to={`/user/${user._id}`}>Hello {user.fullname}</Link></h1>
 					<button onClick={onLogout}>Logout</button>
 				</section>
 			) : (

@@ -11,6 +11,7 @@ import { BugDetails } from './pages/BugDetails.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
 import { BugEdit } from './pages/BugEdit.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
+import { UserIndex } from './pages/UserIndex.jsx'
 
 export function App() {
     return (
@@ -25,6 +26,7 @@ export function App() {
                         <Route path="/bug/edit/:bugId" element={<BugEdit />} />
                         <Route path="/bug/:bugId" element={<BugDetails />} />
                         <Route path="/user/:userId" element={<UserDetails />} />
+                        <Route path="/users" element={<UserIndex />} />
                         <Route path="/about" element={<AboutUs />} />
                     </Routes>
                 </main>

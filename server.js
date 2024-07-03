@@ -22,14 +22,13 @@ app.get('/api/bug', (req, res) => {
         title: req.query.title,
         severity: +req.query.severity,
         labels: req.query.labels,
-        pageIdx: req.query.pageIdx
+        pageIdx: req.query.pageIdx,
+        userId: req.query.userId
     }
     const sortBy = {
         field: req.query.sortByField || 'createdAt',
         order: req.query.sortByOrder === '1' ? -1 : 1
     }
-    // console.log('req.query: ', req.query)
-
     bugService.query(filterBy, sortBy)
         .then(bugs => res.send(bugs))
         .catch(err => {

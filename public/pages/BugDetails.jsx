@@ -24,10 +24,12 @@ export function BugDetails() {
     if (!bug) return <h1>loading....</h1>
     return bug && <div>
         <h3>Bug Details 🐛</h3>
-        <h4>{bug.title}</h4>
+        <h3>{bug.title}</h3>
+        <h4>Created by: {bug.creator.fullName}</h4>
         <p>{bug.description}</p>
         <p>Severity: <span>{bug.severity}</span></p>
-        <Link to="/bug">Back to List</Link>
+
+        <button className="back"><Link to="/bug">Back to List</Link></button>
     </div>
 
 }

@@ -8,5 +8,6 @@ export function BugPreview({ bug }) {
         <p>Severity: <span>{bug.severity}</span></p>
         <p>Labels: {bug.labels && bug.labels.join(', ')}</p>
         <p>Created at: {time}</p>
+        <p>Created by: {bug.creator.fullName}</p>
     </article>
 }
