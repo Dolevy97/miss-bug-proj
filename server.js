@@ -123,6 +123,24 @@ app.get('/api/user', (req, res) => {
         })
 })
 
+app.delete('/api/user/:userId', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser.isAdmin) return res.status(401).send('Cannot remove user.')
+
+    const { userId } = req.params
+
+    userService.remove(userId, loggedinUser)
+        .then(() => {
+            loggerService.info(`User ${userId} removed`)
+            res.send(`User (${userId}) removed!`)
+        })
+        .catch((err) => {
+            loggerService.error('Cannot get user', err)
+            res.status(500).send('Cannot get user')
+        })
+
+})
+
 app.get('/api/user/:userId', (req, res) => {
     const { userId } = req.params
 

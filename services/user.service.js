@@ -24,14 +24,14 @@ function getLoginToken(user) {
 
 function validateToken(token) {
 	if (!token) return null
-    
+
 	const str = cryptr.decrypt(token)
 	const user = JSON.parse(str)
 	return user
 }
 
 function checkLogin({ username, password }) {
-    // You might want to remove the password validation for dev
+	// You might want to remove the password validation for dev
 	// var user = users.find(user => user.username === username && user.password === password)
 	var user = users.find(user => user.username === username)
 	if (user) {
@@ -62,9 +62,14 @@ function getById(userId) {
 	return Promise.resolve(user)
 }
 
-function remove(userId) {
-	users = users.filter(user => user._id !== userId)
-	return _saveUsersToFile()
+function remove(userId, loggedInUser) {
+	if (!loggedInUser.isAdmin) return Promise.reject('Cannot delete a user!')
+	else {
+		const userIdx = users.findIndex(user => user._id === userId)
+		if (userIdx < 0) return Promise.reject(`Cannot find user - ${userId}`)
+		users.splice(userIdx, 1)
+		return _saveUsersToFile()
+	}
 }
 
 function save(user) {
@@ -72,11 +77,11 @@ function save(user) {
 	users.push(user)
 
 	return _saveUsersToFile()
-        .then(() => ({
-            _id: user._id,
-            fullname: user.fullname,
-            isAdmin: user.isAdmin,
-        }))
+		.then(() => ({
+			_id: user._id,
+			fullname: user.fullname,
+			isAdmin: user.isAdmin,
+		}))
 }
 
 function _saveUsersToFile() {

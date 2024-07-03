@@ -12,12 +12,14 @@
         "username": "muki",
         "fullname": "Muki Ba",
         "password": "secret2",
-        "score": 100
+        "score": 100,
+        "isAdmin": false
     },
     {
         "_id": "6iykr",
         "fullname": "Kiki Ki",
         "username": "kiki",
-        "password": "kiki"
+        "password": "kiki",
+        "isAdmin": false
     }
 ]

@@ -40,6 +40,12 @@ function save(bugToSave, loggedinUser) {
     return _saveBugsToFile().then(() => bugToSave)
 }
 
+function getById(bugId) {
+    const bug = bugs.find(bug => bug._id === bugId)
+    if (!bug) return Promise.reject('Cannot find bug- ' + bugId)
+    return Promise.resolve(bug)
+}
+
 function remove(bugId) {
     const bugIdx = bugs.findIndex(bug => bug._id === bugId)
     if (bugIdx < 0) return Promise.reject(`Cannot find bug - ${bugId}`)
@@ -47,11 +53,7 @@ function remove(bugId) {
     return _saveBugsToFile().then(() => `Bug (${bugId}) removed!`)
 }
 
-function getById(bugId) {
-    const bug = bugs.find(bug => bug._id === bugId)
-    if (!bug) return Promise.reject('Cannot find bug- ' + bugId)
-    return Promise.resolve(bug)
-}
+
 
 function _saveBugsToFile() {
     return new Promise((resolve, reject) => {

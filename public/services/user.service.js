@@ -2,14 +2,21 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedInUser'
 const BASE_URL = '/api/user/'
 
 export const userService = {
+    query,
     login,
     signup,
+    remove,
     logout,
     getLoggedinUser,
     getById,
     getEmptyCredentials,
 }
 
+
+function query() {
+    return axios.get(BASE_URL)
+        .then(res => res.data)
+}
 
 function login({ username, password }) {
     return axios.post('/api/auth/login', { username, password })
@@ -28,6 +35,12 @@ function signup({ username, password, fullname }) {
             return user
         })
 }
+
+function remove(userId) {
+    return axios.delete(BASE_URL + userId)
+        .then(res => res.data)
+}
+
 
 function logout() {
     return axios.post('/api/auth/logout')

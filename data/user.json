@@ -1,32 +1,39 @@
 [
   {
-    "_id": "u101",
-    "fullname": "Dolev Levy",
-    "username": "Dolev",
-    "password": "Dolevy97",
-    "score": 100,
-    "isAdmin": true
+      "_id": "u101",
+      "fullname": "Dolev Levy",
+      "username": "Dolev",
+      "password": "Dolevy97",
+      "score": 100,
+      "isAdmin": true
   },
   {
-    "_id": "u102",
-    "username": "muki",
-    "fullname": "Muki Ba",
-    "password": "secret2",
-    "score": 100,
-    "isAdmin": false
+      "_id": "u102",
+      "username": "muki",
+      "fullname": "Muki Ba",
+      "password": "secret2",
+      "score": 100,
+      "isAdmin": false
   },
   {
-    "_id": "6iykr",
-    "fullname": "Kiki Ki",
-    "username": "kiki",
-    "password": "kiki",
-    "isAdmin": false
+      "_id": "6iykr",
+      "fullname": "Kiki Ki",
+      "username": "kiki",
+      "password": "kiki",
+      "isAdmin": false
   },
   {
-    "_id": "DRZLm",
-    "fullname": "adsfa asdf",
-    "username": "asd",
-    "password": "asdf",
-    "isAdmin": false
+      "_id": "6iskr",
+      "fullname": "dada da",
+      "username": "dada",
+      "password": "dgf",
+      "isAdmin": false
+  },
+  {
+      "_id": "6ihkr",
+      "fullname": "haha ha",
+      "username": "haha",
+      "password": "hfgh",
+      "isAdmin": false
   }
 ]
