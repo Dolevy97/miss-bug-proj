@@ -31,8 +31,8 @@ export function AppHeader() {
 				<h1>React Bug App</h1>
 				<nav className="app-nav">
 					<NavLink to="/">Home</NavLink>
-					<NavLink to="/about">About</NavLink>
 					<NavLink to="/bug">Bugs</NavLink>
+					<NavLink to="/about">About</NavLink>
 				</nav>
 			</section>
 			{user && user.isAdmin && <AdminHeader />}

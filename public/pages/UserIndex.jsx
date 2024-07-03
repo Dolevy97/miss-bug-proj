@@ -13,10 +13,9 @@ export function UserIndex() {
     useEffect
         (() => {
             userService.query().then(setUsers)
-            setAdmin(userService.getLoggedinUser())
             bugService.query().then(setBugs)
+            setAdmin(userService.getLoggedinUser())
         }, [])
-
 
     if (!users || !admin || !bugs) return <h3>Loading..</h3>
 
@@ -28,7 +27,7 @@ export function UserIndex() {
                 return showErrorMsg('Cannot delete user')
             } else {
                 userService.remove(userToDelete._id).then(() => {
-                    const usersToUpdate = users.filter((user) => user._id !== userToDelete._id)
+                    const usersToUpdate = users.filter(user => user._id !== userToDelete._id)
                     setUsers(usersToUpdate)
                     showSuccessMsg('User Deleted!')
                 })
@@ -38,7 +37,7 @@ export function UserIndex() {
 
     return (
         <section className="user-index-container">
-            <h2>Users!</h2>
+            <h2>List of users</h2>
 
             {users.map(user =>
                 admin._id !== user._id &&
