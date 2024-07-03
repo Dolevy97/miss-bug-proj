@@ -25,12 +25,16 @@ function query(filterBy = {}, sortBy = {}) {
         })
 }
 
-function save(bugToSave) {
+function save(bugToSave, loggedinUser) {
+    console.log(bugToSave)
     if (bugToSave._id) {
         const bugIdx = bugs.findIndex(bug => bug._id === bugToSave._id)
+        if (!loggedinUser.isAdmin &&
+            bugToSave.owner._id !== loggedinUser._id) return Promise.reject('Not your bug!')
         bugs[bugIdx] = bugToSave
     } else {
         bugToSave._id = utilService.makeId()
+        bugToSave.owner = loggedinUser
         bugs.unshift(bugToSave)
     }
     return _saveBugsToFile().then(() => bugToSave)
@@ -91,3 +95,4 @@ function _sort(bugs, sortBy) {
     }
     return bugs
 }
+

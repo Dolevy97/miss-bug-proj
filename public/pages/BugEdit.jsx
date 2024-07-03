@@ -33,14 +33,6 @@ export function BugEdit() {
             .catch(err => console.log('err:', err))
     }
 
-
-
-    //     if (value) setFilterByToEdit(prevFilter => ({ ...prevFilter, labels: [...prevFilter.labels, field] }))
-    //     else {
-    //         const newLabels = filterByToEdit.labels.filter(label => label !== field)
-    //         setFilterByToEdit(prevFilter => ({ ...prevFilter, labels: newLabels }))
-
-
     function handleChange({ target }) {
         const field = target.name
         let value = target.value

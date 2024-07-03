@@ -4,12 +4,9 @@ import path from 'path'
 
 import { bugService } from "./services/bug.service.js"
 import { loggerService } from "./services/logger.service.js"
-import { fileURLToPath } from 'url';
+import { userService } from "./services/user.service.js"
 
 const app = express()
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 //* Express Config:
 app.use(express.static('public'))
 app.use(cookieParser())
@@ -42,7 +39,6 @@ app.get('/api/bug', (req, res) => {
 })
 
 // Bug READ
-
 app.get('/api/bug/:bugId', (req, res) => {
     const { bugId } = req.params
     let visitedBugs = req.cookies.visitedBugs || []
@@ -62,8 +58,9 @@ app.get('/api/bug/:bugId', (req, res) => {
 })
 
 // Bug CREATE
-
 app.post('/api/bug', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot update bug.')
     const bug = {
         title: req.body.title || '',
         description: req.body.description || '',
@@ -71,7 +68,7 @@ app.post('/api/bug', (req, res) => {
         labels: req.body.labels || [],
         createdAt: +req.body.createdAt || Date.now()
     }
-    bugService.save(bug)
+    bugService.save(bug, loggedinUser)
         .then(savedBug => res.send(savedBug))
         .catch((err) => {
             loggerService.error('Cannot save bug', err)
@@ -80,17 +77,18 @@ app.post('/api/bug', (req, res) => {
 })
 
 // Bug Update
+app.put('/api/bug/', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot update bug.')
 
-app.put('/api/bug', (req, res) => {
-    console.log(req.params)
     const bugToSave = {
-        _id: req.params._id,
+        _id: req.query._id,
         title: req.body.title || '',
         description: req.body.description || '',
         labels: req.body.labels || '',
         severity: +req.body.severity || ''
     }
-    bugService.save(bugToSave)
+    bugService.save(bugToSave, loggedinUser)
         .then(savedBug => res.send(savedBug))
         .catch((err) => {
             loggerService.error('Cannot save bug', err)
@@ -98,12 +96,13 @@ app.put('/api/bug', (req, res) => {
         })
 })
 
-
 // Bug DELETE
 app.delete('/api/bug/:bugId', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot update bug.')
+
     const { bugId } = req.params
-    console.log(bugId)
-    bugService.remove(bugId)
+    bugService.remove(bugId, loggedinUser)
         .then(() => {
             loggerService.info(`Bug ${bugId} removed`)
             res.send(`Bug (${bugId}) removed!`)
@@ -114,10 +113,69 @@ app.delete('/api/bug/:bugId', (req, res) => {
         })
 })
 
-// Default path
+// User API
+
+app.get('/api/user', (req, res) => {
+    userService.query()
+        .then(users => res.send(users))
+        .catch(err => {
+            loggerService.error('Cannot load users', err)
+            res.status(400).send('Cannot load users')
+        })
+})
+
+app.get('/api/user/:userId', (req, res) => {
+    const { userId } = req.params
+
+    userService.getById(userId)
+        .then(user => res.send(user))
+        .catch(err => {
+            loggerService.error('Cannot load user', err)
+            res.status(400).send('Cannot load user')
+        })
+})
+
+// Auth API
+
+app.post('/api/auth/login', (req, res) => {
+    const credentials = req.body
+
+    userService.checkLogin(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(401).send('Invalid Credentials')
+            }
+        })
+})
+
+app.post('/api/auth/signup', (req, res) => {
+    const credentials = req.body
+
+    userService.save(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(400).send('Cannot signup')
+            }
+        })
+})
+
+app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('loginToken')
+    res.send('logged-out!')
+})
+
+// Default path / Fallback route
 
 app.get('/**', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+    res.sendFile(path.resolve('public/index.html'))
 })
 
 // Listen

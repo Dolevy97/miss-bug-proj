@@ -101,7 +101,7 @@ export function BugIndex() {
             </section>
             <button onClick={onTogglePagination} className="btn-toggle">Toggle Pagination</button>
             <main>
-                <BugList bugs={bugs} onRemoveBug={onRemoveBug}/>
+                <BugList bugs={bugs} onRemoveBug={onRemoveBug} />
             </main>
         </main>
     )
