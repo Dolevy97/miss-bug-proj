@@ -63,14 +63,12 @@ function getLoggedinUser() {
 function _setLoggedinUser(user) {
     const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance, activities: user.activities, prefs: user.prefs }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(userToSave))
-    console.log(userToSave)
     return userToSave
 }
 
 function updateBalance(diff) {
     const loggedInUser = getLoggedinUser()
     if (!loggedInUser) return Promise.reject(new Error('User not logged in'));
-
     return userService.getById(loggedInUser._id)
         .then(user => {
             if (!user) {

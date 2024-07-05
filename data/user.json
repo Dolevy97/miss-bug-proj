@@ -3,24 +3,8 @@
     "username": "muki",
     "password": "muki1",
     "fullname": "fdsfsf sfsf",
-    "balance": 10130,
-    "activities": [
-      {
-        "txt": "Removed a Todo: 'Learn React16'",
-        "at": 1720213669790,
-        "_id": "9k3OsX"
-      },
-      {
-        "txt": "Removed a Todo: 'Practice Redux18'",
-        "at": 1720213674797,
-        "_id": "vnZhA2"
-      },
-      {
-        "txt": "Removed a Todo: 'Learn React16'",
-        "at": 1720213669790,
-        "_id": "9k3OsX"
-      }
-    ],
+    "balance": 10140,
+    "activities": [],
     "prefs": {
       "color": "#353131",
       "bgColor": "#e47272"
@@ -52,51 +36,6 @@
       "bgColor": "#222222"
     },
     "_id": "U27AO",
-    "isAdmin": false
-  },
-  {
-    "username": "mukiaaaa",
-    "password": "muki1",
-    "fullname": "dada dadadadad",
-    "balance": 10000,
-    "activities": [],
-    "prefs": {
-      "color": "#dddddd",
-      "bgColor": "#222222"
-    },
-    "updatedAt": 1720210488597,
-    "createdAt": 1720210488597,
-    "_id": "mjXna",
-    "isAdmin": false
-  },
-  {
-    "username": "mukiadsada",
-    "password": "muki1",
-    "fullname": "aaaaaaaaa",
-    "balance": 10000,
-    "activities": [],
-    "prefs": {
-      "color": "#dddddd",
-      "bgColor": "#222222"
-    },
-    "updatedAt": 1720211330009,
-    "createdAt": 1720211330009,
-    "_id": "my2ZS",
-    "isAdmin": false
-  },
-  {
-    "username": "mukiaaaf",
-    "password": "muki1",
-    "fullname": "dada adadad",
-    "balance": 10000,
-    "activities": [],
-    "prefs": {
-      "color": "#dddddd",
-      "bgColor": "#222222"
-    },
-    "updatedAt": 1720211364842,
-    "createdAt": 1720211364842,
-    "_id": "feEwh",
     "isAdmin": false
   }
 ]

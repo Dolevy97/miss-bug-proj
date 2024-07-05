@@ -71,7 +71,7 @@ app.post('/api/todo', (req, res) => {
 
 // Todo Update
 app.put('/api/todo/', (req, res) => {
-    todoService.getById(req.query._id)
+    todoService.getById(req.body._id)
         .then(todo => {
             const todoToSave = {
                 _id: req.query._id,
@@ -85,9 +85,13 @@ app.put('/api/todo/', (req, res) => {
             todoService.save(todoToSave)
                 .then(savedTodo => res.send(savedTodo))
                 .catch((err) => {
-                    loggerService.error('Cannot save todo', err)
-                    res.status(500).send('Cannot save todo', err)
+                    loggerService.error('Cannot update todo', err)
+                    res.status(500).send('Cannot update todo', err)
                 })
+        })
+        .catch((err) => {
+            loggerService.error('Cannot update todo', err)
+            res.status(500).send('Cannot update todo', err)
         })
 
 })
@@ -117,6 +121,30 @@ app.get('/api/user', (req, res) => {
         })
 })
 
+
+app.get('/api/user/:userId', (req, res) => {
+    const { userId } = req.params
+
+    userService.getById(userId)
+        .then(user => res.send(user))
+        .catch(err => {
+            loggerService.error('Cannot load user', err)
+            res.status(400).send('Cannot load user')
+        })
+})
+
+app.put('/api/user', (req, res) => {
+    const userUpdates = req.body
+
+    userService.updateUser(userUpdates)
+        .then(user => res.send(user))
+        .catch(err => {
+            loggerService.error('Cannot update user', err)
+            res.status(400).send('Cannot update user')
+        })
+})
+
+
 // Add this only if you plan to implement admin
 
 // app.delete('/api/user/:userId', (req, res) => {
@@ -132,28 +160,6 @@ app.get('/api/user', (req, res) => {
 //         })
 // })
 
-app.put('/api/user', (req, res) => {
-    const { userId } = req.params
-    const userUpdates = req.body
-
-    userService.updateUser(userId, userUpdates)
-        .then(user => res.send(user))
-        .catch(err => {
-            loggerService.error('Cannot load user', err)
-            res.status(400).send('Cannot load user')
-        })
-})
-
-app.get('/api/user/:userId', (req, res) => {
-    const { userId } = req.params
-
-    userService.getById(userId)
-        .then(user => res.send(user))
-        .catch(err => {
-            loggerService.error('Cannot load user', err)
-            res.status(400).send('Cannot load user')
-        })
-})
 
 // Auth API
 

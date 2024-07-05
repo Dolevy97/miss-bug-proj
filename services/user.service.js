@@ -59,6 +59,9 @@ function getById(userId) {
 		_id: user._id,
 		username: user.username,
 		fullname: user.fullname,
+		prefs: user.prefs,
+		balance: user.balance,
+		activities: user.activities
 	}
 
 	return Promise.resolve(user)
@@ -74,11 +77,14 @@ function remove(userId, loggedInUser) {
 	}
 }
 
-function updateUser(userId, userToSave) {
+function updateUser(userToSave) {
 	const userIdx = users.findIndex(user => user._id === userToSave._id)
 	const user = users[userIdx]
 
-	const updatedActivities = [...user.activities, ...userToSave.activities]
+	const userActivities = Array.isArray(user.activities) ? user.activities : [];
+	const newActivities = Array.isArray(userToSave.activities) ? userToSave.activities : [];
+
+	const updatedActivities = [...userActivities, ...newActivities]
 
 	const newUser = { ...user, ...userToSave, activities: updatedActivities }
 	users[userIdx] = newUser
