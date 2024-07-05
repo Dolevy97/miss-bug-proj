@@ -1,14 +1,14 @@
 {
-  "name": "miss-bug-proj",
+  "name": "todolist",
   "version": "1.0.0",
   "description": "",
+  "main": "server.js",
   "type": "module",
-  "main": "miss-bug-backend.js",
   "scripts": {
     "start": "node server.js",
     "dev": "set SECRET1=Dolev-Secret-1-2-3 & nodemon --ignore \"./data\" server.js"
   },
-  "author": "me",
+  "author": "Me",
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.6",

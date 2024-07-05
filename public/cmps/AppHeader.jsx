@@ -1,52 +1,56 @@
-const { useState } = React
+const { useSelector } = ReactRedux
+const { Link, NavLink, useNavigate } = ReactRouterDOM
 
-const { Link, NavLink } = ReactRouterDOM
-const { useNavigate } = ReactRouter
-
-import { userService } from '../services/user.service.js'
-import { showErrorMsg } from '../services/event-bus.service.js'
-
-import { UserMsg } from './UserMsg.jsx'
+import { UserMsg } from "./UserMsg.jsx"
 import { LoginSignup } from './LoginSignup.jsx'
-import { AdminHeader } from '../pages/AdminHeader.jsx'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { logout } from '../store/actions/user.actions.js'
+import { ProgressBar } from "./ProgressBar.jsx"
+
 
 export function AppHeader() {
-	const navigate = useNavigate()
-	const [user, setUser] = useState(userService.getLoggedinUser())
+    const navigate = useNavigate()
+    const user = useSelector(storeState => storeState.loggedInUser)
 
-	function onLogout() {
-		userService.logout()
-			.then(() => onSetUser(null))
-			.catch(err => showErrorMsg('Oops try again'))
-	}
 
-	function onSetUser(user) {
-		setUser(user)
-		navigate('/')
-	}
+    function onLogout() {
+        logout()
+            .then(() => {
+                showSuccessMsg('Adios')
+                navigate('/')
+            })
+            .catch((err) => {
+                showErrorMsg('Oops try again')
+            })
+    }
 
-	return (
-		<header className="app-header full main-layout">
-			<section className="header-container">
-				<h1>React Bug App</h1>
-				<nav className="app-nav">
-					<NavLink to="/">Home</NavLink>
-					<NavLink to="/bug">Bugs</NavLink>
-					<NavLink to="/about">About</NavLink>
-				</nav>
-			</section>
-			{user && user.isAdmin && <AdminHeader />}
-			{user ? (
-				<section className='user-authentication'>
-					<h1><Link to={`/user/${user._id}`}>Hello {user.fullname}</Link></h1>
-					<button onClick={onLogout}>Logout</button>
-				</section>
-			) : (
-				<section className='user-authentication'>
-					<LoginSignup onSetUser={onSetUser} />
-				</section>
-			)}
-			<UserMsg />
-		</header>
-	)
+
+    return (
+        <header className="app-header full main-layout" style={user && { backgroundColor: user.prefs.bgColor, color: user.prefs.color }}>
+            <section className="header-container">
+                <h1>React Todo App</h1>
+                {user &&
+                    <ProgressBar />
+                }
+                {user ? (
+                    <section className="header-user" >
+                        <Link to={`/user/${user._id}`}>Hello {user.fullname}!</Link>
+                        <p>Current Balance: {user.balance}</p>
+                        <button onClick={onLogout}>Logout</button>
+                    </section >
+                ) : (
+                    <section className="header-user-login-signup" >
+                        <LoginSignup />
+                    </section>
+                )}
+                <nav className="app-nav">
+                    <NavLink to="/" >Home</NavLink>
+                    <NavLink to="/about" >About</NavLink>
+                    <NavLink to="/todo" >Todos</NavLink>
+                    <NavLink to="/dashboard" >Dashboard</NavLink>
+                </nav>
+            </section>
+            <UserMsg />
+        </header >
+    )
 }

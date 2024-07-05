@@ -1,25 +1,41 @@
 [
-    {
-        "_id": "u101",
-        "fullname": "Dolev Levy",
-        "username": "Dolev",
-        "password": "Dolevy97",
-        "score": 100,
-        "isAdmin": true
+  {
+    "username": "muki",
+    "password": "muki1",
+    "fullname": "fdsfsf sfsf",
+    "balance": 10130,
+    "activities": [],
+    "prefs": {
+      "color": "#353131",
+      "bgColor": "#e47272"
     },
-    {
-        "_id": "u102",
-        "username": "muki",
-        "fullname": "Muki Ba",
-        "password": "secret2",
-        "score": 100,
-        "isAdmin": false
+    "_id": "Czw93",
+    "isAdmin": true
+  },
+  {
+    "username": "Dolevy",
+    "password": "doli1234",
+    "fullname": "Dolev Levy",
+    "balance": 10000,
+    "activities": [],
+    "prefs": {
+      "color": "#dddddd",
+      "bgColor": "#222222"
     },
-    {
-        "_id": "6iykr",
-        "fullname": "Kiki Ki",
-        "username": "kiki",
-        "password": "kiki",
-        "isAdmin": false
-    }
+    "_id": "8iHOh",
+    "isAdmin": false
+  },
+  {
+    "username": "puki",
+    "password": "muki1",
+    "fullname": "Puki Dee",
+    "balance": 10000,
+    "activities": [],
+    "prefs": {
+      "color": "#dddddd",
+      "bgColor": "#222222"
+    },
+    "_id": "U27AO",
+    "isAdmin": false
+  }
 ]

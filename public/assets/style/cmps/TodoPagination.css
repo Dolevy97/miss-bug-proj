@@ -1,0 +1,26 @@
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-block: 1em .2em;
+}
+
+.pagination .btn {
+    border-radius: 8px;
+}
+
+.pagination .btn:not(.btn-curr-page) {
+    font-size: .9em;
+}
+
+.pagination .btn:not(.btn-curr-page):hover {
+    cursor: pointer;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

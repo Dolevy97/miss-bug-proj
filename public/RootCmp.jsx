@@ -1,37 +1,46 @@
 const Router = ReactRouterDOM.HashRouter
-// const { Route, Routes} = ReactRouterDOM
-const { Route, Routes } = ReactRouterDOM
-// const Router = ReactRouterDOM.BrowserRouter
+const { Routes, Route } = ReactRouterDOM
+const { Provider } = ReactRedux
 
-import { AppHeader } from './cmps/AppHeader.jsx'
-import { AppFooter } from './cmps/AppFooter.jsx'
-import { Home } from './pages/Home.jsx'
-import { BugIndex } from './pages/BugIndex.jsx'
-import { BugDetails } from './pages/BugDetails.jsx'
-import { AboutUs } from './pages/AboutUs.jsx'
-import { BugEdit } from './pages/BugEdit.jsx'
-import { UserDetails } from './pages/UserDetails.jsx'
-import { UserIndex } from './pages/UserIndex.jsx'
 
-export function App() {
+import { AppHeader } from "./cmps/AppHeader.jsx"
+import { Home } from "./pages/Home.jsx"
+import { About } from "./pages/About.jsx"
+import { TodoIndex } from "./pages/TodoIndex.jsx"
+import { TodoDetails } from "./pages/TodoDetails.jsx"
+import { TodoEdit } from "./pages/TodoEdit.jsx"
+import { AboutTeam } from "./cmps/AboutTeam.jsx"
+import { AboutVision } from "./cmps/AboutVision.jsx"
+import { Dashboard } from "./pages/Dashboard.jsx"
+import { store } from "./store/store.js"
+import { UserDetails } from "./pages/UserDetails.jsx"
+import { AppFooter } from "./cmps/AppFooter.jsx"
+
+export function RootCmp() {
+
     return (
-        <Router>
-            <div className='main-app'>
-                <AppHeader />
-                <main className='container'>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/bug" element={<BugIndex />} />
-                        <Route path="/bug/edit" element={<BugEdit />} />
-                        <Route path="/bug/edit/:bugId" element={<BugEdit />} />
-                        <Route path="/bug/:bugId" element={<BugDetails />} />
-                        <Route path="/user/:userId" element={<UserDetails />} />
-                        <Route path="/users" element={<UserIndex />} />
-                        <Route path="/about" element={<AboutUs />} />
-                    </Routes>
-                </main>
-                <AppFooter />
-            </div>
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <section className="app main-layout">
+                    <AppHeader />
+                    <main>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/about" element={<About />}>
+                                <Route path="team" element={<AboutTeam />} />
+                                <Route path="vision" element={<AboutVision />} />
+                            </Route>
+                            <Route path="/todo/:todoId" element={<TodoDetails />} />
+                            <Route path="/todo/edit/:todoId" element={<TodoEdit />} />
+                            <Route path="/todo/edit" element={<TodoEdit />} />
+                            <Route path="/todo" element={<TodoIndex />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/user/:userId" element={<UserDetails />} />
+                        </Routes>
+                    </main>
+                    <AppFooter />
+                </section>
+            </Router>
+        </Provider>
     )
 }

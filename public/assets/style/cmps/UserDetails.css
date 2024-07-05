@@ -1,0 +1,50 @@
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-details h1 {
+    font-size: 2em;
+}
+
+.user-details-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4em;
+
+
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    font-weight: bold;
+    font-size: 1.3em;
+
+    background-color: azure;
+    padding: 1em;
+    border-radius: 12px;
+}
+
+.user-details-form input {
+    align-self: center;
+}
+
+.activities-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-block-start: 1em;
+}
+
+.activities-container h2 {
+    font-size: 2em;
+}
+
+.activity-container {
+    font-size: 1.4em;
+}
+
+.activity-time {
+    color: lightgray;
+}

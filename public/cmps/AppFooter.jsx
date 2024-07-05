@@ -1,18 +1,14 @@
-import { showSuccessMsg } from '../services/event-bus.service.js'
-const { useEffect } = React
+import { ProgressBar } from "./ProgressBar.jsx";
+const { useSelector } = ReactRedux
 
-export function AppFooter () {
 
-    useEffect(() => {
-        // component did mount when dependancy array is empty
-    }, [])
+export function AppFooter() {
+
+    const user = useSelector(storeState => storeState.loggedInUser)
 
     return (
-        <footer>
-            <p>
-                coffeerights to all
-            </p>
-        </footer>
+        <section className="footer-container full" style={user && { backgroundColor: user.prefs.bgColor, color: user.prefs.color }}>
+            <ProgressBar />
+        </section>
     )
-
 }

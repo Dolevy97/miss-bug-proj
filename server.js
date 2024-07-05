@@ -2,9 +2,9 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import path from 'path'
 
-import { bugService } from "./services/bug.service.js"
 import { loggerService } from "./services/logger.service.js"
 import { userService } from "./services/user.service.js"
+import { todoService } from "./services/todo.service.js"
 
 const app = express()
 //* Express Config:
@@ -14,101 +14,103 @@ app.use(express.json())
 
 //* Express Routing:
 
-// Rest API for Bugs
+// Rest API for Todos
 
-// Bug LIST
-app.get('/api/bug', (req, res) => {
+// Todo LIST
+app.get('/api/todo', (req, res) => {
     const filterBy = {
-        title: req.query.title,
-        severity: +req.query.severity,
-        labels: req.query.labels,
+        txt: req.query.txt,
+        importance: +req.query.importance,
+        isDone: req.query.isDone,
         pageIdx: req.query.pageIdx,
         userId: req.query.userId
     }
     const sortBy = {
-        field: req.query.sortByField || 'createdAt',
+        field: req.query.sortByField || 'name',
         order: req.query.sortByOrder === '1' ? -1 : 1
     }
-    bugService.query(filterBy, sortBy)
-        .then(bugs => res.send(bugs))
+    console.log(filterBy, sortBy)
+    // todoService.query(filterBy, sortBy)
+    todoService.query()
+        .then(todos => res.send(todos))
         .catch(err => {
-            loggerService.error('cannot get bugs', err)
-            res.status(500).send('Cannot get bugs')
+            loggerService.error('cannot get todos', err)
+            res.status(500).send('Cannot get todos')
         })
 })
 
-// Bug READ
-app.get('/api/bug/:bugId', (req, res) => {
-    const { bugId } = req.params
-    let visitedBugs = req.cookies.visitedBugs || []
-    if (visitedBugs.length >= 3 && !visitedBugs.includes(bugId)) {
-        return res.status(401).send('You have visited too many bugs, please wait a bit.')
+// Todo READ
+app.get('/api/todo/:todoId', (req, res) => {
+    const { todoId } = req.params
+    let visitedTodos = req.cookies.visitedTodos || []
+    if (visitedTodos.length >= 3 && !visitedTodos.includes(todoId)) {
+        return res.status(401).send('You have visited too many todos, please wait a bit.')
     }
-    if (!visitedBugs.includes(bugId)) {
-        visitedBugs.push(bugId)
-        res.cookie('visitedBugs', visitedBugs, { maxAge: 1000 * 7 })
+    if (!visitedTodos.includes(todoId)) {
+        visitedTodos.push(todoId)
+        res.cookie('visitedTodos', visitedTodos, { maxAge: 1000 * 7 })
     }
-    bugService.getById(bugId)
-        .then(bug => res.send(bug))
+    todoService.getById(todoId)
+        .then(todo => res.send(todo))
         .catch((err) => {
-            loggerService.error('Cannot get bug', err)
-            res.status(500).send('Cannot get bug')
+            loggerService.error('Cannot get todo', err)
+            res.status(500).send('Cannot get todo')
         })
 })
 
-// Bug CREATE
-app.post('/api/bug', (req, res) => {
-    const loggedinUser = userService.validateToken(req.cookies.loginToken)
-    if (!loggedinUser) return res.status(401).send('Cannot update bug.')
-    const bug = {
-        title: req.body.title || '',
-        description: req.body.description || '',
-        severity: +req.body.severity || '',
-        labels: req.body.labels || [],
-        createdAt: +req.body.createdAt || Date.now()
+// Todo CREATE
+app.post('/api/todo', (req, res) => {
+
+    const todo = {
+        txt: req.body.txt || '',
+        isDone: req.body.isDone || false,
+        importance: +req.body.importance || '',
+        color: req.body.color || '',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
     }
-    bugService.save(bug, loggedinUser)
-        .then(savedBug => res.send(savedBug))
+    todoService.save(todo)
+        .then(savedTodo => res.send(savedTodo))
         .catch((err) => {
-            loggerService.error('Cannot save bug', err)
-            res.status(500).send('Cannot save bug', err)
+            loggerService.error('Cannot save todo', err)
+            res.status(500).send('Cannot save todo', err)
         })
 })
 
-// Bug Update
-app.put('/api/bug/', (req, res) => {
-    const loggedinUser = userService.validateToken(req.cookies.loginToken)
-    if (!loggedinUser) return res.status(401).send('Cannot update bug.')
-
-    const bugToSave = {
-        _id: req.query._id,
-        title: req.body.title || '',
-        description: req.body.description || '',
-        labels: req.body.labels || '',
-        severity: +req.body.severity || ''
-    }
-    bugService.save(bugToSave, loggedinUser)
-        .then(savedBug => res.send(savedBug))
-        .catch((err) => {
-            loggerService.error('Cannot save bug', err)
-            res.status(500).send('Cannot save bug', err)
+// Todo Update
+app.put('/api/todo/', (req, res) => {
+    todoService.getById(req.query._id)
+        .then(todo => {
+            const todoToSave = {
+                _id: req.query._id,
+                txt: req.body.txt || todo.txt,
+                isDone: req.body.isDone || todo.isDone,
+                importance: +req.body.importance || todo.importance,
+                color: req.body.color || todo.color,
+                createdAt: +req.body.createdAt || todo.createdAt,
+                updatedAt: Date.now()
+            }
+            todoService.save(todoToSave)
+                .then(savedTodo => res.send(savedTodo))
+                .catch((err) => {
+                    loggerService.error('Cannot save todo', err)
+                    res.status(500).send('Cannot save todo', err)
+                })
         })
+
 })
 
-// Bug DELETE
-app.delete('/api/bug/:bugId', (req, res) => {
-    const loggedinUser = userService.validateToken(req.cookies.loginToken)
-    if (!loggedinUser) return res.status(401).send('Cannot update bug.')
-
-    const { bugId } = req.params
-    bugService.remove(bugId, loggedinUser)
+// Todo DELETE
+app.delete('/api/todo/:todoId', (req, res) => {
+    const { todoId } = req.params
+    todoService.remove(todoId)
         .then(() => {
-            loggerService.info(`Bug ${bugId} removed`)
-            res.send(`Bug (${bugId}) removed!`)
+            loggerService.info(`Todo ${todoId} removed`)
+            res.send(`Todo (${todoId}) removed!`)
         })
         .catch((err) => {
-            loggerService.error('Cannot get bug', err)
-            res.status(500).send('Cannot get bug')
+            loggerService.error('Cannot get todo', err)
+            res.status(500).send('Cannot get todo')
         })
 })
 
@@ -123,23 +125,20 @@ app.get('/api/user', (req, res) => {
         })
 })
 
-app.delete('/api/user/:userId', (req, res) => {
-    const loggedinUser = userService.validateToken(req.cookies.loginToken)
-    if (!loggedinUser.isAdmin) return res.status(401).send('Cannot remove user.')
+// Add this only if you plan to implement admin
 
-    const { userId } = req.params
-
-    userService.remove(userId, loggedinUser)
-        .then(() => {
-            loggerService.info(`User ${userId} removed`)
-            res.send(`User (${userId}) removed!`)
-        })
-        .catch((err) => {
-            loggerService.error('Cannot get user', err)
-            res.status(500).send('Cannot get user')
-        })
-
-})
+// app.delete('/api/user/:userId', (req, res) => {
+//     const { userId } = req.params
+//     userService.remove(userId)
+//         .then(() => {
+//             loggerService.info(`User ${userId} removed`)
+//             res.send(`User (${userId}) removed!`)
+//         })
+//         .catch((err) => {
+//             loggerService.error('Cannot get user', err)
+//             res.status(500).send('Cannot get user')
+//         })
+// })
 
 app.get('/api/user/:userId', (req, res) => {
     const { userId } = req.params
@@ -171,7 +170,6 @@ app.post('/api/auth/login', (req, res) => {
 
 app.post('/api/auth/signup', (req, res) => {
     const credentials = req.body
-
     userService.save(credentials)
         .then(user => {
             if (user) {
@@ -197,4 +195,4 @@ app.get('/**', (req, res) => {
 
 // Listen
 
-app.listen(3030, () => console.log('Server ready at 127.0.0.1:3030 !'))
+app.listen(3030, () => console.log('Server ready at http://127.0.0.1:3030 !'))

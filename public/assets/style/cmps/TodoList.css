@@ -1,0 +1,26 @@
+.todo-list {
+    padding: 15px 0 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.todo-list li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--clr1bg);
+}
+
+.no-todos {
+    font-size: 3em;
+    text-align: center;
+    width: 95.5vw;
+}
+
+.todo-index h2 {
+    font-size: 2em;
+    text-align: center;
+}

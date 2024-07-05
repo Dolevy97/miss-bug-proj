@@ -1,0 +1,27 @@
+.todo-filter, .todo-sort {
+    background-color: var(--clr2bg);
+    padding: 1em;
+    text-align: center;
+}
+
+.todo-filter {
+    /* margin-block-start: 1em; */
+    border-radius: 8px 8px 0 0;
+}
+
+.todo-sort {
+    margin-block-end: 1em;
+    border-radius: 0 0 8px 8px;
+}
+
+.todo-filter-form {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: auto;
+}
+
+.sort-btn {
+    outline: 1px solid black;
+    background-color: #fdd3eb;
+}

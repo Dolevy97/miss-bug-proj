@@ -37,6 +37,9 @@ function checkLogin({ username, password }) {
 			_id: user._id,
 			fullname: user.fullname,
 			isAdmin: user.isAdmin,
+			activities: user.activities,
+			balance: user.balance,
+			prefs: user.prefs
 		}
 	}
 	return Promise.resolve(user)
@@ -72,6 +75,7 @@ function remove(userId, loggedInUser) {
 
 function save(user) {
 	user._id = utilService.makeId()
+	user = { ...user, isAdmin: false, _id: utilService.makeId(), balance: 10000, activities: [], prefs: { color: '#dddddd', bgColor: '#222222' } }
 	users.push(user)
 
 	return _saveUsersToFile()
