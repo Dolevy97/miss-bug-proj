@@ -90,7 +90,7 @@ function updateBalance(diff) {
 }
 
 function saveUser(userToEdit) {
-    return axios.put(BASE_URL + userToEdit._id, userToEdit)
+    return axios.put(BASE_URL, userToEdit)
         .then(() => {
             _setLoggedinUser(userToEdit)
             return userToEdit

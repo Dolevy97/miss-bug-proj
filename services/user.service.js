@@ -14,6 +14,7 @@ export const userService = {
 	checkLogin,
 	getLoginToken,
 	validateToken,
+	updateUser
 }
 
 function getLoginToken(user) {
@@ -73,6 +74,17 @@ function remove(userId, loggedInUser) {
 	}
 }
 
+function updateUser(userId, userToSave) {
+	const userIdx = users.findIndex(user => user._id === userToSave._id)
+	const user = users[userIdx]
+
+	const updatedActivities = [...user.activities, ...userToSave.activities]
+
+	const newUser = { ...user, ...userToSave, activities: updatedActivities }
+	users[userIdx] = newUser
+	return _saveUsersToFile()
+}
+
 function save(user) {
 	user._id = utilService.makeId()
 	user = { ...user, isAdmin: false, _id: utilService.makeId(), balance: 10000, activities: [], prefs: { color: '#dddddd', bgColor: '#222222' } }
@@ -83,6 +95,9 @@ function save(user) {
 			_id: user._id,
 			fullname: user.fullname,
 			isAdmin: user.isAdmin,
+			activities: user.activities,
+			balance: user.balance,
+			prefs: user.prefs
 		}))
 }
 

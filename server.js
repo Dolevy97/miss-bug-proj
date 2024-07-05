@@ -29,7 +29,7 @@ app.get('/api/todo', (req, res) => {
         field: req.query.sortByField || 'name',
         order: req.query.sortByOrder === '1' ? -1 : 1
     }
-    console.log(filterBy, sortBy)
+    // console.log(filterBy, sortBy)
     // todoService.query(filterBy, sortBy)
     todoService.query()
         .then(todos => res.send(todos))
@@ -42,14 +42,6 @@ app.get('/api/todo', (req, res) => {
 // Todo READ
 app.get('/api/todo/:todoId', (req, res) => {
     const { todoId } = req.params
-    let visitedTodos = req.cookies.visitedTodos || []
-    if (visitedTodos.length >= 3 && !visitedTodos.includes(todoId)) {
-        return res.status(401).send('You have visited too many todos, please wait a bit.')
-    }
-    if (!visitedTodos.includes(todoId)) {
-        visitedTodos.push(todoId)
-        res.cookie('visitedTodos', visitedTodos, { maxAge: 1000 * 7 })
-    }
     todoService.getById(todoId)
         .then(todo => res.send(todo))
         .catch((err) => {
@@ -139,6 +131,18 @@ app.get('/api/user', (req, res) => {
 //             res.status(500).send('Cannot get user')
 //         })
 // })
+
+app.put('/api/user', (req, res) => {
+    const { userId } = req.params
+    const userUpdates = req.body
+
+    userService.updateUser(userId, userUpdates)
+        .then(user => res.send(user))
+        .catch(err => {
+            loggerService.error('Cannot load user', err)
+            res.status(400).send('Cannot load user')
+        })
+})
 
 app.get('/api/user/:userId', (req, res) => {
     const { userId } = req.params

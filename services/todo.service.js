@@ -36,8 +36,9 @@ function save(todoToSave) {
 }
 
 function getById(todoId) {
+    // console.log(todoId)
     const todo = todos.find(todo => todo._id === todoId)
-    if (!todo) return Promise.reject('Cannot find todo - ' + todoId)
+    if (!todo) return Promise.reject('Cannot find todo to update - ' + todoId)
     return Promise.resolve(todo)
 }
 
