@@ -1,39 +1,30 @@
 [
     {
-        "_id": "17oJc",
-        "txt": "Practice Redux227",
+        "_id": "UZbd4j",
+        "txt": "Practice Redux2",
         "isDone": true,
         "importance": 10,
         "color": "#F64CD7",
         "createdAt": 1720157559935,
-        "updatedAt": 1720249892559
+        "updatedAt": 1720250412685
     },
     {
-        "txt": "Practice Redux2",
-        "importance": 7,
-        "isDone": false,
-        "_id": "UZbd4j",
-        "color": "#F64CD7",
-        "updatedAt": 1720200135175,
-        "createdAt": 1720157559935
-    },
-    {
-        "txt": "Master CSS5",
-        "importance": 2,
-        "isDone": true,
         "_id": "zyWoeK",
+        "txt": "Master CSS5",
+        "isDone": false,
+        "importance": 2,
         "color": "#5935D5",
-        "updatedAt": 1720201979109,
-        "createdAt": 1720150907049
+        "createdAt": 1720150907049,
+        "updatedAt": 1720250555294
     },
     {
-        "txt": "Learn React6",
-        "importance": 2,
-        "isDone": true,
         "_id": "Sn4OpM",
+        "txt": "Learn React6",
+        "isDone": true,
+        "importance": 2,
         "color": "#9CF60D",
-        "updatedAt": 1720201981856,
-        "createdAt": 1720123163896
+        "createdAt": 1720123163896,
+        "updatedAt": 1720250188044
     },
     {
         "txt": "Master CSS7",
@@ -45,67 +36,67 @@
         "createdAt": 1720121314467
     },
     {
-        "txt": "Master CSS8",
-        "importance": 4,
-        "isDone": false,
         "_id": "oNQlJW",
-        "color": "#445E16",
-        "updatedAt": 1720132221584,
-        "createdAt": 1720132221584
-    },
-    {
-        "txt": "Practice Redux9",
+        "txt": "Master CSS8",
+        "isDone": false,
         "importance": 4,
-        "isDone": false,
+        "color": "#445E16",
+        "createdAt": 1720132221584,
+        "updatedAt": 1720250131643
+    },
+    {
         "_id": "STSN9A",
-        "color": "#CA958A",
-        "updatedAt": 1720132306537,
-        "createdAt": 1720132306537
-    },
-    {
-        "txt": "Practice Redux10",
-        "importance": 10,
-        "isDone": false,
-        "_id": "9jlNFo",
-        "color": "#55513D",
-        "updatedAt": 1720128328505,
-        "createdAt": 1720128328505
-    },
-    {
-        "txt": "Practice Redux11",
-        "importance": 2,
+        "txt": "Practice Redux9",
         "isDone": true,
+        "importance": 4,
+        "color": "#CA958A",
+        "createdAt": 1720132306537,
+        "updatedAt": 1720250028939
+    },
+    {
+        "_id": "9jlNFo",
+        "txt": "Practice Redux10",
+        "isDone": true,
+        "importance": 10,
+        "color": "#55513D",
+        "createdAt": 1720128328505,
+        "updatedAt": 1720250026922
+    },
+    {
         "_id": "TLydqj",
+        "txt": "Practice Redux11",
+        "isDone": true,
+        "importance": 2,
         "color": "#6C2C35",
-        "updatedAt": 1720201980535,
-        "createdAt": 1720185869235
+        "createdAt": 1720185869235,
+        "updatedAt": 1720250027513
     },
     {
-        "txt": "Learn React12",
-        "importance": 8,
-        "isDone": false,
         "_id": "b8xbKJ",
+        "txt": "Learn React12",
+        "isDone": true,
+        "importance": 8,
         "color": "#AB981E",
-        "updatedAt": 1720133842789,
-        "createdAt": 1720133842789
+        "createdAt": 1720133842789,
+        "updatedAt": 1720250017419
     },
     {
-        "txt": "Learn React13",
-        "importance": 3,
-        "isDone": false,
         "_id": "5MW0mm",
+        "txt": "Learn React13",
+        "isDone": true,
+        "importance": 3,
         "color": "#AF366B",
-        "updatedAt": 1720118269721,
-        "createdAt": 1720118269721
+        "createdAt": 1720118269721,
+        "updatedAt": 1720250024496
     },
     {
-        "txt": "Practice Redux14",
-        "importance": 5,
-        "isDone": false,
         "_id": "x62kma",
+        "txt": "Practice Redux14",
+        "isDone": true,
+        "importance": 5,
         "color": "#A58C20",
-        "updatedAt": 1720178658658,
-        "createdAt": 1720178658658
+        "createdAt": 1720178658658,
+        "updatedAt": 1720250025308
     },
     {
         "txt": "Learn React15",
@@ -117,48 +108,48 @@
         "createdAt": 1720129324572
     },
     {
-        "txt": "Learn React16",
-        "importance": 6,
-        "isDone": false,
         "_id": "rliTwM",
+        "txt": "Learn React16",
+        "isDone": true,
+        "importance": 6,
         "color": "#EE7DA9",
-        "updatedAt": 1720139713997,
-        "createdAt": 1720139713997
+        "createdAt": 1720139713997,
+        "updatedAt": 1720250023836
     },
     {
-        "txt": "Learn React17",
-        "importance": 7,
-        "isDone": false,
         "_id": "xZUaV1",
+        "txt": "Learn React17",
+        "isDone": true,
+        "importance": 7,
         "color": "#45FC08",
-        "updatedAt": 1720111953861,
-        "createdAt": 1720111953861
+        "createdAt": 1720111953861,
+        "updatedAt": 1720250022543
     },
     {
-        "txt": "Practice Redux18",
-        "importance": 4,
-        "isDone": false,
         "_id": "AnR35S",
+        "txt": "Practice Redux18",
+        "isDone": true,
+        "importance": 4,
         "color": "#E3A6B0",
-        "updatedAt": 1720150598541,
-        "createdAt": 1720150598541
+        "createdAt": 1720150598541,
+        "updatedAt": 1720250023181
     },
     {
-        "txt": "Master CSS19",
-        "importance": 5,
-        "isDone": false,
         "_id": "a7zV3k",
+        "txt": "Master CSS19",
+        "isDone": true,
+        "importance": 5,
         "color": "#F1683C",
-        "updatedAt": 1720123029936,
-        "createdAt": 1720123029936
+        "createdAt": 1720123029936,
+        "updatedAt": 1720249969337
     },
     {
-        "txt": "Master CSS20",
-        "importance": 1,
-        "isDone": false,
         "_id": "vOEtuu",
+        "txt": "Master CSS20",
+        "isDone": true,
+        "importance": 1,
         "color": "#CCF96E",
-        "updatedAt": 1720201997105,
-        "createdAt": 1720133999994
+        "createdAt": 1720133999994,
+        "updatedAt": 1720249968987
     }
 ]
