@@ -35,7 +35,6 @@ export function loadTodos(filterBy, sortBy) {
 }
 
 export function removeTodo(todoId) {
-    // console.log('todoId from actions:', todoId)
     return todoService.get(todoId)
         .then(removedTodo => {
             if (!removedTodo) throw new Error(`Todo with ID ${todoId} not found`)
@@ -63,7 +62,6 @@ export function removeTodo(todoId) {
 }
 
 export function saveTodo(todo) {
-    // console.log('todo from actions:', todo)
     const type = todo._id ? UPDATE_TODO : ADD_TODO
     return todoService.save(todo)
         .then(savedTodo => {

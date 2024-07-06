@@ -74,9 +74,9 @@ app.put('/api/todo/', (req, res) => {
     todoService.getById(req.body._id)
         .then(todo => {
             const todoToSave = {
-                _id: req.query._id,
+                _id: req.body._id || todo._id,
                 txt: req.body.txt || todo.txt,
-                isDone: req.body.isDone || todo.isDone,
+                isDone: req.body.isDone,
                 importance: +req.body.importance || todo.importance,
                 color: req.body.color || todo.color,
                 createdAt: +req.body.createdAt || todo.createdAt,
