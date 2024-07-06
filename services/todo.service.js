@@ -13,12 +13,11 @@ export const todoService = {
 function query(filterBy = {}, sortBy = {}) {
     return Promise.resolve(todos)
         .then(todos => {
-
-            // // Filtering & Pagination
-            // todos = _filter(todos, filterBy)
+            // Filtering & Pagination
+            todos = _filter(todos, filterBy)
 
             // // Sorting
-            // todos = _sort(todos, sortBy)
+            todos = _sort(todos, sortBy)
 
             return todos
         })
@@ -62,29 +61,31 @@ function _saveTodosToFile() {
     })
 }
 
-// function _filter(todos, filterBy) {
-//     if (filterBy.title) {
-//         const regExp = new RegExp(filterBy.title, 'i')
-//         todos = todos.filter(todo => regExp.test(todo.title))
-//     }
-//     if (filterBy.importance) {
-//         todos = todos.filter(todo => todo.importance >= filterBy.importance)
-//     }
-//     if (filterBy.userId) {
-//         todos = todos.filter(todo => todo.creator._id === filterBy.userId)
-//     }
-//     return todos
-// }
+function _filter(todos, filterBy) {
+    if (filterBy.txt) {
+        const regExp = new RegExp(filterBy.txt, 'i')
+        todos = todos.filter(todo => regExp.test(todo.txt))
+    }
+    if (filterBy.importance) {
+        todos = todos.filter(todo => todo.importance >= filterBy.importance)
+    }
+    if (filterBy.isDone === 'done') {
+        todos = todos.filter(todo => todo.isDone)
+    } else if (filterBy.isDone === 'active') {
+        todos = todos.filter(todo => !todo.isDone)
+    }
+    if (filterBy.pageIdx !== undefined) {
+        const startIdx = filterBy.pageIdx * filterBy.pageSize
+        todos = todos.slice(startIdx, startIdx + filterBy.pageSize)
+    }
+    return todos
+}
 
-// function _sort(todos, sortBy) {
-//     if (sortBy.field === 'title') {
-//         todos = todos.toSorted((b1, b2) => b1.title.localeCompare(b2.title) * sortBy.order)
-//     }
-//     else if (sortBy.field === 'importance') {
-//         todos = todos.toSorted((b1, b2) => (b2.importance - b1.importance) * sortBy.order)
-//     }
-//     else if (sortBy.field === 'createdAt') {
-//         todos = todos.toSorted((b1, b2) => (b2.createdAt - b1.createdAt) * sortBy.order)
-//     }
-//     return todos
-// }
+function _sort(todos, sortBy) {
+    if (sortBy.field === 'name') {
+        todos = todos.toSorted((t1, t2) => t1.txt.localeCompare(t2.txt) * sortBy.dir)
+    } else if (sortBy.field === 'importance') {
+        todos = todos.toSorted((t1, t2) => (t2.importance - t1.importance) * sortBy.dir)
+    }
+    return todos
+}

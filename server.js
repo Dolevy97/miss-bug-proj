@@ -20,18 +20,16 @@ app.use(express.json())
 app.get('/api/todo', (req, res) => {
     const filterBy = {
         txt: req.query.txt,
-        importance: +req.query.importance,
+        importance: +req.query.importance || 0,
         isDone: req.query.isDone,
-        pageIdx: req.query.pageIdx,
-        userId: req.query.userId
+        pageIdx: req.query.pageIdx !== undefined ? +req.query.pageIdx : undefined,
+        pageSize: +req.query.pageSize
     }
     const sortBy = {
-        field: req.query.sortByField || 'name',
-        order: req.query.sortByOrder === '1' ? -1 : 1
+        field: req.query.field,
+        dir: req.query.dir === '1' ? -1 : 1
     }
-    // console.log(filterBy, sortBy)
-    // todoService.query(filterBy, sortBy)
-    todoService.query()
+    todoService.query(filterBy, sortBy)
         .then(todos => res.send(todos))
         .catch(err => {
             loggerService.error('cannot get todos', err)

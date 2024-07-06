@@ -28,17 +28,15 @@ export function TodoIndex() {
     const defaultSort = todoService.getSortFromSearchParams(searchParams)
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        setSearchParams({ ...filterBy, ...sortBy })
         debouncedLoadTodos(filterBy, sortBy)
     }, [filterBy, sortBy])
 
     useEffect(() => {
-        // defaultFilter.pageIdx = (filterBy.pageIdx === 'undefined' || filterBy.pageIdx === undefined) ? undefined : 0
         setFilterBy({ ...defaultFilter, pageSize: page_size })
         setSortBy(defaultSort)
     }, [])
-
-    // console.log(filterBy)
+    
     function onRemoveTodo(todoId) {
         const confirmRemove = confirm('Are you sure you want to delete the todo?')
         if (confirmRemove) {

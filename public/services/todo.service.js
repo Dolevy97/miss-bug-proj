@@ -50,7 +50,7 @@ function getDefaultFilter() {
 }
 
 function getDefaultSort() {
-    return { 'name': 1 }
+    return { field: 'name', dir: 1 }
 }
 
 function getFilterFromSearchParams(searchParams) {
@@ -109,32 +109,6 @@ function _getTodoCountByImportanceMap(todos) {
     }, { low: 0, normal: 0, urgent: 0 })
     return todoCountByImportanceMap
 }
-
-function _filter(todos, filterBy) {
-    if (filterBy.txt) {
-        const regExp = new RegExp(filterBy.txt, 'i')
-        todos = todos.filter(todo => regExp.test(todo.txt))
-    }
-    if (filterBy.importance) {
-        todos = todos.filter(todo => todo.importance >= filterBy.importance)
-    }
-    if (filterBy.isDone === 'done') {
-        todos = todos.filter(todo => todo.isDone)
-    } else if (filterBy.isDone === 'active') {
-        todos = todos.filter(todo => !todo.isDone)
-    }
-    return todos
-}
-
-function _sort(todos, sortBy) {
-    if (sortBy.name) {
-        todos = todos.toSorted((t1, t2) => t1.txt.localeCompare(t2.txt) * sortBy.name)
-    } else if (sortBy.importance) {
-        todos = todos.toSorted((t1, t2) => (t2.importance - t1.importance) * sortBy.importance)
-    }
-    return todos
-}
-
 
 // Data Model:
 // const todo = {

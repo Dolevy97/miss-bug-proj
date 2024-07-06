@@ -11,29 +11,29 @@
     {
         "_id": "zyWoeK",
         "txt": "Master CSS5",
-        "isDone": true,
+        "isDone": false,
         "importance": 2,
         "color": "#5935D5",
         "createdAt": 1720150907049,
-        "updatedAt": 1720251399826
+        "updatedAt": 1720253805762
     },
     {
         "_id": "Sn4OpM",
         "txt": "Learn React6",
-        "isDone": true,
+        "isDone": false,
         "importance": 2,
         "color": "#9CF60D",
         "createdAt": 1720123163896,
-        "updatedAt": 1720250188044
+        "updatedAt": 1720253806111
     },
     {
-        "txt": "Master CSS7",
-        "importance": 2,
-        "isDone": true,
         "_id": "lTbQti",
+        "txt": "Master CSS7",
+        "isDone": false,
+        "importance": 2,
         "color": "#AA43E8",
-        "updatedAt": 1720201981220,
-        "createdAt": 1720121314467
+        "createdAt": 1720121314467,
+        "updatedAt": 1720253806495
     },
     {
         "_id": "oNQlJW",
@@ -65,11 +65,11 @@
     {
         "_id": "TLydqj",
         "txt": "Practice Redux11",
-        "isDone": true,
+        "isDone": false,
         "importance": 2,
         "color": "#6C2C35",
         "createdAt": 1720185869235,
-        "updatedAt": 1720250027513
+        "updatedAt": 1720253807333
     },
     {
         "_id": "b8xbKJ",

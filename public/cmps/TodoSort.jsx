@@ -3,8 +3,8 @@ const { useState, useEffect } = React
 
 export function TodoSort({ sortBy, onSetSortBy }) {
 
-    const [sortByToEdit, setSortByToEdit] = useState({ ...sortBy })
     const [sortDirection, setSortDirection] = useState(1)
+    const [sortByToEdit, setSortByToEdit] = useState({ sortByField: 'name', ...sortDirection })
 
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export function TodoSort({ sortBy, onSetSortBy }) {
     }, [sortByToEdit])
 
     function onSortBy(value) {
-        setSortByToEdit(({ [value]: sortDirection }))
+        setSortByToEdit(({ field: value, dir: sortDirection }))
         setSortDirection(sortDirection === 1 ? -1 : 1)
     }
 
