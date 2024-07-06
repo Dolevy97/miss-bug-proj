@@ -15,13 +15,10 @@ export function ProgressBar() {
 
     function getTodosPercent() {
         if (!totalTodos.length) return
-        // console.log(totalTodos)
         const doneTodos = totalTodos.filter(todo => todo.isDone)
-        // console.log(doneTodos.length)
         const doneTodosPercent = (doneTodos.length / totalTodos.length * 100)
         return doneTodosPercent
     }
-
 
     return (
         <article className="progress-bar-container">

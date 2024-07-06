@@ -6,16 +6,16 @@
         "importance": 10,
         "color": "#F64CD7",
         "createdAt": 1720157559935,
-        "updatedAt": 1720250412685
+        "updatedAt": 1720251368518
     },
     {
         "_id": "zyWoeK",
         "txt": "Master CSS5",
-        "isDone": false,
+        "isDone": true,
         "importance": 2,
         "color": "#5935D5",
         "createdAt": 1720150907049,
-        "updatedAt": 1720250555294
+        "updatedAt": 1720251399826
     },
     {
         "_id": "Sn4OpM",
@@ -38,11 +38,11 @@
     {
         "_id": "oNQlJW",
         "txt": "Master CSS8",
-        "isDone": false,
+        "isDone": true,
         "importance": 4,
         "color": "#445E16",
         "createdAt": 1720132221584,
-        "updatedAt": 1720250131643
+        "updatedAt": 1720251088786
     },
     {
         "_id": "STSN9A",
@@ -114,7 +114,7 @@
         "importance": 6,
         "color": "#EE7DA9",
         "createdAt": 1720139713997,
-        "updatedAt": 1720250023836
+        "updatedAt": 1720251271969
     },
     {
         "_id": "xZUaV1",

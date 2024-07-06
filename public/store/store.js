@@ -62,19 +62,19 @@ function appReducer(state = initialState, cmd = {}) {
             return {
                 ...state,
                 todos: state.todos.filter(todo => todo._id !== cmd.todoId),
-                totalTodos: state.todos
+                totalTodos: state.todos.map(todo => todo._id === cmd.todo._id ? cmd.todo : todo)
             }
         case ADD_TODO:
             return {
                 ...state,
                 todos: [...state.todos, cmd.todo],
-                totalTodos: state.todos
+                totalTodos: state.todos.map(todo => todo._id === cmd.todo._id ? cmd.todo : todo)
             }
         case UPDATE_TODO:
             return {
                 ...state,
                 todos: state.todos.map(todo => todo._id === cmd.todo._id ? cmd.todo : todo),
-                totalTodos: state.todos
+                totalTodos: state.todos.map(todo => todo._id === cmd.todo._id ? cmd.todo : todo)
             }
 
         // User
